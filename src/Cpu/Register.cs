@@ -1,6 +1,14 @@
-﻿
+﻿/**
+ * Oddmatics.Experiments.VM.Cpu.Register -- Experimental Virtual Machine CPU Register
+ *
+ * This source-code is part of the experimental virtual machine project by rozza of Oddmatics:
+ * <<http://www.oddmatics.uk>>
+ * <<http://github.com/rozniak/Experimental-VM>>
+ *
+ * Sharing, editing and general licence term information can be found inside of the "LICENCE.MD" file that should be located in the root of this project's directory structure.
+ */
 
-namespace Oddmatics.Experiments.VM
+namespace Oddmatics.Experiments.VM.Cpu
 {
     public class Register
     {
