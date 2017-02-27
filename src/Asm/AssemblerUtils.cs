@@ -15,6 +15,16 @@ namespace Oddmatics.Experiments.VM.Asm
 {
     internal static partial class Assembler
     {
+        private static uint ConvertConstDefToUInt(string def)
+        {
+            if (def.StartsWith("#"))
+                return Convert.ToUInt32(def.Substring(1));
+            else if (def.StartsWith("0x"))
+                return Convert.ToUInt32(def.Substring(2), 16);
+
+            throw new FormatException("ConvertConstDefToUInt: Constant format unrecognised.");
+        }
+
         private static byte GetRegOperand(string register)
         {
             switch (register)

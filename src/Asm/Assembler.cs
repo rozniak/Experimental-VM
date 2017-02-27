@@ -62,7 +62,29 @@ namespace Oddmatics.Experiments.VM.Asm
 
                 return new byte[] { MachineLanguage.MOV_REG_REG, 0x00,
                         sourceRegister, targetRegister };
-                
+            }
+            else if (MoveConstToRegRegex.IsMatch(instruction)) // mov <reg>, <const>
+            {
+                // Get target register and constant
+                byte targetRegister = GetRegOperand(
+                    GetRegRegex.Matches(instruction)[0].ToString()
+                    );
+
+                uint constant = ConvertConstDefToUInt(
+                    GetConstRegex.Matches(instruction)[0].ToString()
+                    );
+                byte[] constantBytes = BitConverter.GetBytes(constant);
+
+
+                // Assemble instruction
+                byte[] assembledBytes = new byte[] { MachineLanguage.MOV_REG_CONST, 0x00, 0x00,
+                    targetRegister, 0x00, 0x00, 0x00, 0x00 }; // Last four bytes are for buffer
+
+                // Copy constant into last four bytes of instruction
+                Array.Reverse(constantBytes); // Reverse to resolve to big-endian
+                Array.Copy(constantBytes, 0, assembledBytes, 4, 4);
+
+                return assembledBytes;
             }
 
             throw new FormatException("Assembler.AssembleMoveInstruction: Failed to parse mov instruction '" +

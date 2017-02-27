@@ -94,9 +94,8 @@ namespace Oddmatics.Experiments.VM.Cpu
 
                 switch (instruction)
                 {
-                    case MachineLanguage.MOV_REG_REG:
-                        MoveOpRegToReg(instruction);
-                        break;
+                    case MachineLanguage.MOV_REG_REG: MoveOpRegToReg(); break;
+                    case MachineLanguage.MOV_REG_CONST: MoveOpConstToReg(); break;
                 }
             }
         }
@@ -176,18 +175,25 @@ namespace Oddmatics.Experiments.VM.Cpu
         }
 
 
-        private void MoveOpRegToReg(byte instruction)
+        private void MoveOpRegToReg()
         {
             // Get registers
             byte sourceRegister = (byte)((Ir & MachineLanguage.DWORD_BYTE3) >> 8);
             byte targetRegister = (byte)(Ir & MachineLanguage.DWORD_BYTE4);
 
-            switch (instruction)
-            {
-                case MachineLanguage.MOV_REG_REG:
-                    SetRegisterValue(targetRegister, GetRegisterValue(sourceRegister));
-                    break;
-            }
+            SetRegisterValue(targetRegister, GetRegisterValue(sourceRegister));
+        }
+
+        private void MoveOpConstToReg()
+        {
+            // Get target register
+            byte targetRegister = (byte)(Ir & MachineLanguage.DWORD_BYTE4);
+
+            // Fetch constant from memory
+            Ir = Ram.FetchDWord(Ip);
+            Ip += 4;
+
+            SetRegisterValue(targetRegister, Ir);
         }
     }
 }

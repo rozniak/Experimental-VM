@@ -80,14 +80,6 @@ namespace Oddmatics.Experiments.VM
 
 
         // Old code - will be moved
-        private static uint ConvertConstDefToUInt(string def)
-        {
-            if (def.StartsWith("#"))
-                return Convert.ToUInt32(def.Substring(1));
-            else if (def.StartsWith("0x"))
-                return Convert.ToUInt32(def.Substring(2), 16);
-
-            throw new FormatException("ConvertConstDefToUInt: Constant format unrecognised.");
-        }
+        
     }
 }
