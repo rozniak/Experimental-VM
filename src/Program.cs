@@ -45,7 +45,7 @@ namespace Oddmatics.Experiments.VM
                         switch (input)
                         {
                             case ".showreg":
-                                VmShowRegisters();
+                                ShowRegisters();
                                 break;
                         }
                     }
@@ -68,7 +68,7 @@ namespace Oddmatics.Experiments.VM
             }
         }
 
-        private static void VmShowRegisters()
+        private static void ShowRegisters()
         {
             Console.WriteLine("EAX : 0x" + String.Format("{0:X}", Cpu.Eax).PadLeft(8, '0'));
             Console.WriteLine("EBX : 0x" + String.Format("{0:X}", Cpu.Ebx).PadLeft(8, '0'));
@@ -76,10 +76,9 @@ namespace Oddmatics.Experiments.VM
             Console.WriteLine("EDX : 0x" + String.Format("{0:X}", Cpu.Edx).PadLeft(8, '0'));
             Console.WriteLine("ESI : 0x" + String.Format("{0:X}", Cpu.Esi).PadLeft(8, '0'));
             Console.WriteLine("EDI : 0x" + String.Format("{0:X}", Cpu.Edi).PadLeft(8, '0'));
+            Console.WriteLine("IP  : 0x" + String.Format("{0:X}", Cpu.Ip).PadLeft(8, '0'));
+            Console.WriteLine("IR  : 0x" + String.Format("{0:X}", Cpu.Ir).PadLeft(8, '0'));
+            Console.WriteLine("SR  : 0x" + String.Format("{0:X}", Cpu.Eflags).PadLeft(8, '0'));
         }
-
-
-        // Old code - will be moved
-        
     }
 }

@@ -57,16 +57,19 @@ namespace Oddmatics.Experiments.VM.Cpu
         public uint Edi { get { return EdiRegister.DWord; } private set { EdiRegister.DWord = value; } }
 
         public uint Ip { get { return IpRegister.DWord; } private set { IpRegister.DWord = value; } }
-        private uint Ir { get { return IrRegister.DWord; } set { IrRegister.DWord = value; } }
+        public uint Ir { get { return IrRegister.DWord; } private set { IrRegister.DWord = value; } }
+
+        public uint Eflags { get; private set; }
 
         #endregion
 
         #region Flags
 
-        private byte Flags;
-
-        private bool ZeroFlag { get { return (Flags & 0x01) == 1; } }
-        private bool CarryFlag { get { return (Flags & 0x02) == 2; } }
+        private bool CarryFlag { get { return (Eflags & 0x01) == 0x01; } }
+        private bool ParityFlag { get { return (Eflags & 0x04) == 0x04; } }
+        private bool AdjustFlag { get { return (Eflags & 0x10) == 0x10; } }
+        private bool ZeroFlag { get { return (Eflags & 0x40) == 0x40; } }
+        private bool SignFlag { get { return (Eflags & 0x80) == 0x80; } }
 
         #endregion
 
